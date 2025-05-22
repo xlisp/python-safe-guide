@@ -1,4 +1,4 @@
-当然可以！以下是一个用 **Markdown** 格式撰写的“Python Web 安全代码实践”文档，覆盖了常见的 Web 安全问题（如 XSS、SQL 注入、CSRF、命令注入等），并给出 Python（主要以 Flask 为例）中安全编程的最佳实践。
+以下是一个“Python Web 安全代码实践”文档，覆盖了常见的 Web 安全问题（如 XSS、SQL 注入、CSRF、命令注入等），并给出 Python（主要以 Flask 为例）中安全编程的最佳实践。
 
 ---
 
