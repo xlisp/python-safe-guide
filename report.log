@@ -1,0 +1,65 @@
+@ python security_scanner.py vulnerable_test.py
+🔍 Python安全扫描报告
+==================================================
+总计发现 6 个安全问题
+
+🟠 HIGH: 4 个
+🟡 MEDIUM: 2 个
+
+==================================================
+详细问题列表:
+==================================================
+
+🔍 HIGH 级别问题:
+------------------------------
+
+1. 硬编码的敏感信息
+   文件: vulnerable_test.py
+   位置: 第 27 行, 第 0 列
+   规则: HARDCODED_SECRET
+   描述: 检测到硬编码的敏感变量: secret_key
+   代码: SECRET_KEY = "supersecretkey123456789"  # 危险
+   建议: 使用环境变量或配置文件存储敏感信息
+
+2. 硬编码的敏感信息
+   文件: vulnerable_test.py
+   位置: 第 28 行, 第 0 列
+   规则: HARDCODED_SECRET
+   描述: 检测到硬编码的敏感变量: api_token
+   代码: API_TOKEN = "abc123def456ghi789"  # 危险
+   建议: 使用环境变量或配置文件存储敏感信息
+
+3. 潜在的命令注入漏洞
+   文件: vulnerable_test.py
+   位置: 第 19 行, 第 13 列
+   规则: COMMAND_INJECTION
+   描述: 使用了危险函数 os.system
+   代码: result = os.system(f"ping -c 4 {hostname}")  # 危险
+   建议: 验证用户输入，使用subprocess.run()并设置shell=False
+
+4. 不安全的反序列化
+   文件: vulnerable_test.py
+   位置: 第 32 行, 第 11 列
+   规则: UNSAFE_DESERIALIZATION
+   描述: 使用了不安全的反序列化函数: pickle.loads
+   代码: return pickle.loads(data)  # 危险
+   建议: 使用JSON或其他安全的序列化格式，避免使用pickle处理不可信数据
+
+🔍 MEDIUM 级别问题:
+------------------------------
+
+1. 使用了不安全的随机数生成器
+   文件: vulnerable_test.py
+   位置: 第 36 行, 第 15 列
+   规则: INSECURE_RANDOM
+   描述: 在安全上下文中使用了不安全的随机函数: random.randint
+   代码: return str(random.randint(100000, 999999))  # 危险 - 用于安全目的
+   建议: 使用secrets模块生成密码学安全的随机数
+
+2. 使用了弱哈希算法
+   文件: vulnerable_test.py
+   位置: 第 24 行, 第 11 列
+   规则: WEAK_HASHING
+   描述: 使用了弱哈希算法: md5
+   代码: return hashlib.md5(password.encode()).hexdigest()  # 危险
+   建议: 使用更安全的哈希算法，如SHA-256、SHA-3或bcrypt（用于密码）
